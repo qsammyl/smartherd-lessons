@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lessons &middot; SmartHerd Learning Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="appwrap">
+<div class="app">
+
+  <h1 class="vh">SmartHerd Lessons</h1>
+
+  <!-- ===== sidebar ===== -->
+  <aside class="sidebar">
+    <div class="logo"><span class="mark">S</span><b>SmartHerd</b></div>
+    <nav class="nav">
+      <a href="index.html"><svg class="icn" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg> Home</a>
+      <a class="active" href="lessons.html"><svg class="icn" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 9h16"/></svg> Lessons</a>
+      <a href="index.html"><svg class="icn" viewBox="0 0 24 24"><path d="M5 19V9M10 19V5M15 19v-6M20 19v-9"/></svg> Progress</a>
+    </nav>
+    <div class="nav-bottom">
+      <a href="https://claude.ai/artifact/B8A8WRH6DSd8m3Wu7zAoVH"><svg class="icn" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg> Full plan</a>
+    </div>
+  </aside>
+
+  <!-- ===== content ===== -->
+  <main class="content">
+
+    <div class="topbar">
+      <div class="sec-row"><h2 class="sec">Lessons</h2><span class="chip" id="chip">&nbsp;</span></div>
+      <div class="topbar-right">
+        <div class="search"><svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <input id="q" placeholder="Search weeks and topics" aria-label="Search lessons"></div>
+      </div>
+    </div>
+
+    <div class="path-summary" id="summary"></div>
+
+    <div class="curric" id="curric"><noscript>Turn on JavaScript to see your curriculum.</noscript></div>
+
+    <p class="dash-foot">Your whole 52-week path. Published weeks open their lesson page; the rest unlock as you go.</p>
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var TOTAL=52;
+  var I={
+    check:'<svg class="icn" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M4 12l5 5L20 6"/></svg>',
+    play :'<svg class="icn" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M8 5l11 7-11 7z"/></svg>',
+    lock :'<svg class="icn" viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+    chev :'<svg class="icn chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>'
+  };
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function weekNum(s){var m=String(s).match(/Lesson\s+(\d+)/i);return m?parseInt(m[1],10):1;}
+  function shortPhase(p){return String(p).replace(/^\d+\s*/,"").replace(/\band\b/i,"&");}
+  function cls(s){return /pass/i.test(s)?'passed':(/wait|submit|review/i.test(s)?'waiting':'new');}
+  function pad(n){return (n<10?'0':'')+n;}
+
+  var CUR=1, PHASES=[], ENTRY={};
+
+  function buildPhases(weeks){
+    var out=[],by={};
+    weeks.forEach(function(w){
+      if(!/^\d/.test(w.phase)) return;         // skip Buffer and Review rows
+      if(!by[w.phase]){ by[w.phase]={name:w.phase, weeks:[]}; out.push(by[w.phase]); }
+      by[w.phase].weeks.push(w);
+    });
+    out.forEach(function(p){ p.first=p.weeks[0].week; p.last=p.weeks[p.weeks.length-1].week; p.count=p.weeks.length; });
+    return out;
+  }
+
+  function weekState(w){
+    var e=ENTRY[w.week];
+    var base = e ? cls(e.status) : (w.week<CUR?'passed':(w.week===CUR?'now':'soon'));
+    return {base:base, link:e?e.file:null, now:(w.week===CUR)};
+  }
+  function dotIcon(base){ return base==='passed'?I.check : (base==='soon'?I.lock : I.play); }
+  function rightLabel(base,w){
+    if(base==='passed') return 'Done';
+    if(base==='waiting') return 'In progress';
+    if(base==='now' || base==='new') return 'Current';
+    return 'Week '+w.week;
+  }
+
+  function weekRow(w){
+    var s=weekState(w), base=s.base, dotCls=(base==='new')?'waiting':base;
+    var title = s.link
+      ? '<a class="w-title" href="'+esc(s.link)+'">'+esc('Week '+w.week+': '+w.title)+'</a>'
+      : '<span class="w-title">'+esc('Week '+w.week+': '+w.title)+'</span>';
+    var sessions =
+      '<div class="w-sessions"><span class="chip-s">Learn</span><span class="chip-s">Build</span><span class="chip-s">Submit</span>'+
+      (w.checkpoint?'<span class="chip-s">Checkpoint</span>':'')+'</div>';
+    var rightCls = s.now ? 'now' : ((base==='passed'||base==='waiting')?base:'');
+    return '<div class="week'+(s.now?' now':'')+'">'+
+      '<span class="w-dot '+dotCls+'">'+dotIcon(base)+'</span>'+
+      '<div class="w-main">'+title+sessions+'</div>'+
+      '<span class="w-right '+rightCls+'">'+esc(rightLabel(base,w))+'</span></div>';
+  }
+
+  function unitHtml(p, idx, open, weeks){
+    var done=p.last<CUR, now=(CUR>=p.first&&CUR<=p.last);
+    var doneWeeks=p.weeks.filter(function(w){return w.week<CUR;}).length;
+    var pct=Math.round(doneWeeks/p.count*100); if(now) pct=Math.max(pct,6); if(done) pct=100;
+    var pub=p.weeks.filter(function(w){return ENTRY[w.week];}).length;
+    var badge = done?'<span class="badge done">'+I.check+'</span>'
+             : now ?'<span class="badge current">'+I.play+'</span>'
+                   :'<span class="badge soon">'+I.lock+'</span>';
+    var meta=p.count+' weeks · Weeks '+p.first+'–'+p.last+(pub?(' · '+pub+' published'):'');
+    return '<details class="unit"'+(open?' open':'')+'>'+
+      '<summary>'+
+        '<span class="num">'+pad(idx+1)+'</span>'+
+        '<span class="u-info"><span class="u-name">'+esc(shortPhase(p.name))+'</span>'+
+          '<span class="u-meta">'+esc(meta)+'</span>'+
+          '<span class="u-bar"><i style="width:'+pct+'%"></i></span></span>'+
+        badge+I.chev+
+      '</summary>'+
+      '<div class="u-body">'+weeks.map(weekRow).join('')+'</div>'+
+    '</details>';
+  }
+
+  function render(query){
+    var q=(query||'').trim().toLowerCase();
+    var active=-1;
+    PHASES.forEach(function(p,i){ if(CUR>=p.first&&CUR<=p.last) active=i; });
+    var html=PHASES.map(function(p,i){
+      var weeks=p.weeks;
+      if(q){ weeks=p.weeks.filter(function(w){return (('week '+w.week+' '+w.title+' '+shortPhase(p.name)).toLowerCase()).indexOf(q)>=0;}); }
+      if(q && weeks.length===0) return '';
+      var open = q ? true : (i===active);
+      return unitHtml(p, i, open, weeks);
+    }).join('');
+    document.getElementById('curric').innerHTML = html || '<p class="u-meta" style="color:var(--quiet)">No weeks match your search.</p>';
+  }
+
+  Promise.all([
+    fetch('data/lessons.json',{cache:'no-store'}).then(function(r){return r.json();}),
+    fetch('data/syllabus.json',{cache:'no-store'}).then(function(r){return r.json();})
+  ]).then(function(res){
+    var lessons=res[0], syl=res[1];
+    CUR=weekNum((lessons.current&&lessons.current.title)||'Lesson 1');
+    (lessons.entries||[]).forEach(function(e){ ENTRY[weekNum(e.title)]=e; });
+    PHASES=buildPhases((syl&&syl.weeks)||[]);
+
+    var pct=Math.max(2,Math.round(CUR/TOTAL*100));
+    var activeName=''; PHASES.forEach(function(p){ if(CUR>=p.first&&CUR<=p.last) activeName=shortPhase(p.name); });
+    document.getElementById('summary').innerHTML=
+      '<div><div class="ps-big">Week '+CUR+' / '+TOTAL+'</div><div class="ps-lab">You are here</div></div>'+
+      '<div class="ps-bar"><i style="width:'+pct+'%"></i></div>'+
+      '<div class="ps-note">'+(lessons.entries||[]).length+' published · Now in '+esc(activeName||'Foundations')+'</div>';
+    document.getElementById('chip').textContent=PHASES.length+' phases · '+(lessons.entries||[]).length+' published';
+
+    render('');
+    var q=document.getElementById('q');
+    q.addEventListener('input',function(){ render(q.value); });
+  }).catch(function(){
+    document.getElementById('curric').innerHTML='<p class="u-meta" style="color:var(--quiet)">Could not load your curriculum. Please refresh.</p>';
+  });
+})();
+</script>
+</body>
+</html>
