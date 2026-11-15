@@ -1,0 +1,21 @@
+{
+  "updated": "15 November 2026",
+  "current": {
+    "title": "Lesson 1: Electricity, parts and your first circuit",
+    "status": "Waiting for your submission",
+    "next": "Finish Sessions 1 to 3, then send your Wokwi link and answers in our chat. Lesson 2 starts the morning after you pass."
+  },
+  "entries": [
+    {
+      "id": "L01",
+      "lesson": 1,
+      "session": "1-3",
+      "label": "Week 1, Sessions 1 to 3",
+      "title": "Lesson 1: Electricity, parts and your first circuit",
+      "summary": "What electricity is, circuits, LED, resistor, push button, breadboard, the ESP32's power pins, and a button-controlled LED built in Wokwi with no code.",
+      "published": "15 November 2026",
+      "file": "lessons/lesson-01.html",
+      "status": "Waiting for your submission"
+    }
+  ]
+}

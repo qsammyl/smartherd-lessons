@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartHerd Learning Path</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">SmartHerd Learning Path</a>
+<nav><a href="index.html">All lessons</a><a href="https://claude.ai/artifact/B8A8WRH6DSd8m3Wu7zAoVH">Full plan</a></nav>
+</div></header>
+<main class="wrap">
+
+<h1>SmartHerd Learning Path</h1>
+<p class="lead">From zero to robotics, AI, data and cybersecurity, applied to a real mixed farm. One cow tracker grows into a whole farm system.</p>
+<div class="card" id="now"><p class="meta">Loading progress&hellip;</p></div>
+<figure><svg viewBox="0 0 760 240" role="img" aria-label="Each field handles one step from the cow to an action" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"><text x="24" y="32" text-anchor="start" font-size="15" font-weight="600" style="fill:var(--ink)">Each field handles one step from the cow to an action</text><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--edge)"/></marker></defs><path d="M156 106H170" style="stroke:var(--edge)" stroke-width="1.25" marker-end="url(#arr)"/><path d="M300 106H314" style="stroke:var(--edge)" stroke-width="1.25" marker-end="url(#arr)"/><path d="M444 106H458" style="stroke:var(--edge)" stroke-width="1.25" marker-end="url(#arr)"/><path d="M588 106H602" style="stroke:var(--edge)" stroke-width="1.25" marker-end="url(#arr)"/><rect x="28" y="60" width="128" height="92" rx="8" fill="none" style="stroke:var(--edge)" stroke-width="1.25"/><text x="92" y="80" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--quiet)">Embedded</text><text x="92" y="100" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--ink)">Sense</text><text x="92" y="120" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">GPS, motion,</text><text x="92" y="136" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">temperature</text><rect x="172" y="60" width="128" height="92" rx="8" fill="none" style="stroke:var(--edge)" stroke-width="1.25"/><text x="236" y="80" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--quiet)">Connectivity</text><text x="236" y="100" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--ink)">Move</text><text x="236" y="120" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">4G, MQTT,</text><text x="236" y="136" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">offline buffer</text><rect x="316" y="60" width="128" height="92" rx="8" fill="none" style="stroke:var(--edge)" stroke-width="1.25"/><text x="380" y="80" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--quiet)">Data</text><text x="380" y="100" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--ink)">Store</text><text x="380" y="120" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">Postgres, maps,</text><text x="380" y="136" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">dashboards</text><rect x="460" y="60" width="128" height="92" rx="8" fill="none" style="stroke:var(--edge)" stroke-width="1.25"/><text x="524" y="80" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--quiet)">AI</text><text x="524" y="100" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--ink)">Understand</text><text x="524" y="120" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">Behaviour model,</text><text x="524" y="136" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">anomaly alerts</text><rect x="604" y="60" width="128" height="92" rx="8" fill="none" style="stroke:var(--edge)" stroke-width="1.25"/><text x="668" y="80" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--quiet)">Robotics</text><text x="668" y="100" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--ink)">Act</text><text x="668" y="120" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">Pump, fan,</text><text x="668" y="136" text-anchor="middle" font-size="11.5" font-weight="400" style="fill:var(--ink)">Telegram alert</text><rect x="28" y="172" width="704" height="44" rx="8" style="fill:var(--tint);stroke:var(--edge)" stroke-width="1.25"/><text x="48" y="199" text-anchor="start" font-size="13" font-weight="600" style="fill:var(--ink)">Cybersecurity</text><text x="156" y="199" text-anchor="start" font-size="13" font-weight="400" style="fill:var(--ink)">covers every step: TLS, device logins, secure boot, monitoring</text></svg><figcaption>How the four fields connect in SmartHerd</figcaption></figure>
+<h2>Lessons so far</h2>
+<p class="meta">Newest first. A new session appears here each morning. Every earlier lesson stays as your record.</p>
+<div class="lesson-list" id="lessons"><noscript>Turn on JavaScript to see the lesson list.</noscript></div>
+<script>
+fetch('data/lessons.json', {cache: 'no-store'}).then(r => r.json()).then(d => {
+  const cls = s => /pass/i.test(s) ? 'passed' : (/wait|submit|review/i.test(s) ? 'waiting' : 'new');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const now = document.getElementById('now');
+  now.innerHTML = '<p class="meta">Where you are</p><p style="font-size:20px;margin:4px 0"><strong>' + esc(d.current.title) + '</strong></p>' +
+    '<p style="margin:4px 0"><span class="status ' + cls(d.current.status) + '">' + esc(d.current.status) + '</span></p>' +
+    '<p style="margin:8px 0 0">' + esc(d.current.next) + '</p>' +
+    '<p class="meta" style="margin-top:8px">Updated ' + esc(d.updated) + '</p>';
+  const list = document.getElementById('lessons');
+  list.innerHTML = d.entries.slice().reverse().map(e =>
+    '<div class="card"><a class="title" href="' + esc(e.file) + '">' + esc(e.title) + '</a>' +
+    '<p class="meta">' + esc(e.label) + ' &middot; published ' + esc(e.published) + '</p>' +
+    '<p>' + esc(e.summary) + '</p>' +
+    '<p><span class="status ' + cls(e.status) + '">' + esc(e.status) + '</span></p></div>').join('');
+}).catch(() => { document.getElementById('now').innerHTML = '<p>Could not load progress.</p>'; });
+</script>
+
+<footer>SmartHerd Learning Path, tutored by Claude. A new session is added each day; every earlier lesson stays here as your record.</footer>
+</main>
+</body>
+</html>
