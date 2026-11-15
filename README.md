@@ -1,5 +1,7 @@
 # SmartHerd Learning Path
 
+Live site: https://smartherd-lessons.vercel.app
+
 Static site of Sam's daily SmartHerd lessons (electronics, embedded, data, AI, cybersecurity and robotics, applied to mixed farming).
 
 - `index.html` shows progress and every published lesson, read from `data/lessons.json`.

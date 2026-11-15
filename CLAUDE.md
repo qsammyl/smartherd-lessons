@@ -1,6 +1,6 @@
 # SmartHerd lessons site: how lessons are written
 
-This repo is Sam's lesson website. Vercel redeploys it on every push to `main`. There is no build step: plain HTML, one shared stylesheet, and a JSON index.
+This repo is Sam's lesson website, live at https://smartherd-lessons.vercel.app (Vercel project in his Phenix account). Vercel redeploys it on every push to `main`. There is no build step: plain HTML, one shared stylesheet, and a JSON index.
 
 ## Who the learner is
 
